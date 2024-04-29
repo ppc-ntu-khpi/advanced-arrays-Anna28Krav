@@ -1,6 +1,79 @@
 # Практична робота "Поглиблене використання масивів"
 
-Цей репозиторій містить iнструкції та стартовий код для виконання практичної роботи з теми.
+## **Завдання:** Знайти друге за величиною число у матриці розміром N x M
+
+**Код Arrays:**
+````java
+// у файлі src/Arrays.java
+
+public class Arrays {
+    // Метод для знаходження другого за величиною числа в матриці
+    public static int findSecondLargest(int[][] matrix) {
+        // Перетворюємо матрицю на одновимірний масив
+        int[] nums = java.util.Arrays.stream(matrix).flatMapToInt(java.util.Arrays::stream).distinct().toArray();
+        
+        // Сортуємо масив у спадаючому порядку
+        java.util.Arrays.sort(nums);
+        
+        // Перевіряємо, чи є в матриці хоча б два унікальних числа
+        if (nums.length < 2) {
+            throw new IllegalArgumentException("Матриця має недостатньо унікальних чисел");
+        }
+        
+        // Знаходимо друге за величиною число
+        return nums[nums.length - 2];
+    }
+}
+````
+
+**Код Main:**
+````java
+import java.util.Arrays;
+
+public class Main {
+
+    public static void main(String[] args) {
+        int [][] matrix = new int[3][3];
+        int x=0;
+
+        for(int[] row:matrix)
+            Arrays.fill(row,x);
+
+        for(int[] row:matrix)
+            System.out.println(Arrays.toString(row));
+    }
+}
+````
+
+**Фото роботи програми:**
+
+![](images/www.png)
+
+
+**Код TestArrays:**
+````java
+// у файлі src/TestArrays.java
+
+public class TestArrays {
+    public static void main(String[] args) {
+        // Оголошуємо матрицю для тестування
+        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+
+        try {
+            // Викликаємо метод findSecondLargest з класу Arrays для знаходження другого за величиною числа в матриці
+            int secondLargest = Arrays.findSecondLargest(matrix);
+            // Виводимо результат на екран
+            System.out.println("Друге за величиною число в матриці: " + secondLargest);
+        } catch (IllegalArgumentException e) {
+            // Виводимо повідомлення про помилку у випадку, якщо метод findSecondLargest кидає виняток IllegalArgumentException
+            System.err.println("Помилка: " + e.getMessage());
+        }
+    }
+}
+````
+**Фото роботи програми:**
+
+![](images/ccc.png)
 
 ## В рамках практичної роботи ви маєте зробити наступне:
 1. написати клас, який містить методи для розв'язання обраного вами завдання та тестовий клас, який дозволяє перевірити його роботу. Класи мають міститись у теці ```src```. Не забуваємо про те, що основний клас **має бути універсальним, тобто він не містить інтерфейсу користувача - лише логіку (статичний метод), яка диктується завданням** (і можливо не всі його методи мають бути публічними)!
